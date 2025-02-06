@@ -7,6 +7,12 @@ name('bottles.show');
 
 new class extends Component {
     public Bottle $bottle;
+
+
+    public function mount(Bottle $bottle)  // Add explicit model binding
+    {
+        $this->bottle = $bottle;
+    }
 };
 ?>
 
