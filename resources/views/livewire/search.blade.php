@@ -11,7 +11,7 @@ new class extends Component {
     public function with()
     {
         return [
-            'bottles' => Bottle::where('name', 'like', '%' . $this->search . '%')->get(),
+            'bottles' => Bottle::where('name', 'ilike', '%' . $this->search . '%')->get(),
         ];
     }
 
