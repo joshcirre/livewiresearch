@@ -64,7 +64,7 @@ new class extends Component {
                     <div class="flex items-center gap-2">
                         <div class="flex-1 text-sm font-medium">
                             <div class="flex items-center gap-1">
-                                <a class="text-sm font-medium text-gray-900 dark:text-gray-100" href="/bottles/{{$bottle->id}}">
+                                <a class="text-sm font-medium text-gray-900 dark:text-gray-100" href="/bottles/{{$bottle->id}}" wire:navigate>
                                     {{ $bottle->name }}
                                 </a>
                             </div>

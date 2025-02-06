@@ -1,23 +1,11 @@
 <?php
 use function Laravel\Folio\{name};
-use App\Models\Bottle;
-use Livewire\Volt\Component;
 
 name('bottles.show');
 
-new class extends Component {
-    public Bottle $bottle;
-
-
-    public function mount(Bottle $bottle)  // Add explicit model binding
-    {
-        $this->bottle = $bottle;
-    }
-};
 ?>
 
 <x-layouts.app>
-    @volt('pages.bottles.show')
         <flux:card class="space-y-8">
             <div class="space-y-4">
                 <flux:heading size="lg">{{ $bottle->name }}</flux:heading>
@@ -80,5 +68,4 @@ new class extends Component {
                 </div>
             </div>
         </flux:card>
-    @endvolt
 </x-layouts.app>
