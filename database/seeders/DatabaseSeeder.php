@@ -14,6 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        BottleFactory::times(100)->create();
+        $this->call(BottleSeeder::class);
     }
 }
