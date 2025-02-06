@@ -3,7 +3,6 @@ use function Laravel\Folio\{middleware, name};
 use App\Livewire\Actions\Logout;
 use Livewire\Volt\Component;
 
-middleware(['auth', 'verified']);
 name('dashboard');
 
 new class extends Component {

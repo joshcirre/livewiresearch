@@ -1,17 +1,9 @@
 <?php
-use App\Livewire\Actions\Logout;
+
 use Livewire\Volt\Component;
 
 new class extends Component {
-    /**
-     * Log the current user out of the application.
-     */
-    public function logout(Logout $logout): void
-    {
-        $logout();
-
-        $this->redirect('/', navigate: true);
-    }
+//
 };
 ?>
 
@@ -34,64 +26,42 @@ new class extends Component {
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @fluxStyles
 </head>
-
-<body class="min-h-screen bg-white dark:bg-zinc-800">
-    <flux:header container
-        class="pt-2 border-b bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700 lg:pt-0">
-        <flux:sidebar.toggle class="lg:hidden" icon="bars-2" />
-
-        <flux:brand href="#" logo="https://fluxui.dev/img/demo/logo.png" name="Acme Inc."
-            class="max-lg:hidden dark:hidden" />
-        <flux:brand href="#" logo="https://fluxui.dev/img/demo/dark-mode-logo.png" name="Acme Inc."
-            class="max-lg:!hidden hidden dark:flex" />
-
-        <flux:navbar class="max-lg:hidden">
-            <flux:navbar.item icon="home" href="/" wire:navigate>Home</flux:navbar.item>
-            <flux:separator vertical variant="subtle" class="my-2" />
-            <flux:navbar.item icon="face-smile" href="/playground" wire:navigate>Playground</flux:navbar.item>
-
-        </flux:navbar>
-
-        <flux:spacer />
-
-
-        <flux:dropdown position="bottom" align="end">
-            <flux:button icon-trailing="chevron-down" variant="ghost">{{ auth()->user()->name }}</flux:button>
-
-            @volt('layout.navigation.profile.dropdown')
-                <flux:navmenu>
-                    <flux:navmenu.item href="{{ route('profile.update') }}" wire:navigate icon="building-storefront">Profile
-                    </flux:navmenu.item>
-                    <flux:navmenu.item wire:click='logout' icon="arrow-right-start-on-rectangle">Logout</flux:navmenu.item>
-                </flux:navmenu>
-            @endvolt
-        </flux:dropdown>
-    </flux:header>
-
-    <flux:sidebar stashable sticky
-        class="border-r lg:hidden bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700">
+<body class="min-h-screen bg-white dark dark:bg-zinc-800">
+    <flux:sidebar sticky stashable class="border-r bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700">
         <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
-        <flux:brand href="/" logo="https://fluxui.dev/img/demo/logo.png" name="Acme Inc."
-            class="px-2 dark:hidden" />
-        <flux:brand href="/" logo="https://fluxui.dev/img/demo/dark-mode-logo.png" name="Acme Inc."
-            class="hidden px-2 dark:flex" />
-
+        <flux:brand href="#" logo="https://fluxui.dev/img/demo/logo.png" name="Peated Test" class="px-2 dark:hidden" />
+        <flux:brand href="#" logo="https://fluxui.dev/img/demo/dark-mode-logo.png" name="Peated Test" class="hidden px-2 dark:flex" />
         <flux:navlist variant="outline">
-            <flux:navlist.item icon="home" href="/">Home</flux:navlist.item>
-            <flux:navlist.item icon="face-smile" href="/playground">Playground</flux:navlist.item>
+            <flux:navlist.item icon="home" href="/bottles" wire:navigate>Bottles</flux:navlist.item>
+            <flux:navlist.item icon="inbox" href="/locations" wire:navigate>Locations</flux:navlist.item>
+            <flux:navlist.item icon="document-text" wire:navigate href="/distillers">Distillers</flux:navlist.item>
+            <flux:navlist.item icon="calendar" wire:navigate href="/brands">Brands</flux:navlist.item>
         </flux:navlist>
     </flux:sidebar>
 
-    <flux:main container>
-        <div class="self-stretch flex-1 max-md:pt-6">
+    <flux:header class="!block bg-white lg:bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
+        <flux:navbar class="w-full lg:hidden">
+            <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
+
+            <flux:spacer />
+        </flux:navbar>
+
+        <flux:navbar>
+            <livewire:search />
+        </flux:navbar>
+    </flux:header>
+    <flux:main x-data="{ isSearching: false }" @search-opened.window="isSearching = true" @search-closed.window="isSearching = false">
+        <div x-show="!isSearching">
             {{ $slot }}
         </div>
+        <div x-show="isSearching" id="search-content"></div>
     </flux:main>
     @persist('toast')
         <flux:toast />
     @endpersist
-    @fluxScripts()
+    @fluxScripts
 </body>
+
 
 </html>

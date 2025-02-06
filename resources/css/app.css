@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    :root {
+        --color-accent: var(--color-yellow-400);
+        --color-accent-content: var(--color-yellow-600);
+        --color-accent-foreground: var(--color-yellow-950);
+    }
+
+    .dark {
+        --color-accent: var(--color-yellow-400);
+        --color-accent-content: var(--color-yellow-400);
+        --color-accent-foreground: var(--color-yellow-950);
+    }
+}
